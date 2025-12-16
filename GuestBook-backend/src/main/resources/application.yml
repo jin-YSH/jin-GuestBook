@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: guestbook-backend
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/guestbook?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: guestbook_user
+    password: guestbook_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # ?? ????? update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  jackson:
+    time-zone: Asia/Seoul
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace
