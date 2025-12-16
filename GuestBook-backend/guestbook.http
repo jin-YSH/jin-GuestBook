@@ -1,0 +1,13 @@
+### 방명록 작성
+POST http://localhost:8080/api/guestbooks
+Content-Type: application/json
+
+{
+  "nickname": "jin",
+  "content": "IntelliJ HTTP Client 테스트"
+}
+
+###
+
+### 방명록 전체 조회
+GET http://localhost:8080/api/guestbooks

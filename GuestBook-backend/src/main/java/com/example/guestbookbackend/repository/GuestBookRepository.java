@@ -1,4 +1,7 @@
 package com.example.guestbookbackend.repository;
 
-public class GuestBookRepository {
+import com.example.guestbookbackend.entity.GuestBook;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface GuestBookRepository extends JpaRepository<GuestBook,Long> {
 }
