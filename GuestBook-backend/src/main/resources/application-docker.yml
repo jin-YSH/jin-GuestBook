@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: guestbook-backend
+
+  datasource:
+    # 도커 환경에서는 mysql 컨테이너 이름을 호스트로 사용
+    url: jdbc:mysql://mysql:3306/guestbook?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: guestbook_jin
+    password: guestbook_0704
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # 기존과 동일: 스키마 자동 업데이트
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  jackson:
+    time-zone: Asia/Seoul
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace

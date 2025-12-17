@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 type GuestbookItem = {
   id: number;
@@ -17,9 +18,10 @@ export default function Home() {
   // 방명록 목록 조회
   const fetchGuestbook = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/guestbooks", {
-        cache: "no-store", // Next.js 캐싱 방지
+      const res = await fetch(`${API_BASE}/api/guestbooks`, {
+        cache: "no-store",
       });
+
       const data = await res.json();
       setList(data);
     } catch (error) {
@@ -44,7 +46,7 @@ export default function Home() {
     if (!nickname.trim() || !content.trim()) return;
 
     try {
-      await fetch("http://localhost:8080/api/guestbooks", {
+      await fetch(`${API_BASE}/api/guestbooks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

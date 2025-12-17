@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@Table(name = "guest_book") // DB 테이블 이름과 일치
 public class GuestBook {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
