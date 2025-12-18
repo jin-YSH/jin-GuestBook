@@ -1,22 +1,21 @@
-version: "3.8"
+version: '3.8'
 
 services:
   mysql:
     image: mysql:8.0
     container_name: guestbook-mysql
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
 
   backend:
-    image: dreaminggenie/guestbook-backend
-    container_name: guestbook-backend
-    restart: always
+    build: ./GuestBook-backend
     ports:
       - "8080:8080"
     depends_on:
@@ -27,9 +26,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
 
   frontend:
-    image: dreaminggenie/guestbook-frontend
-    container_name: guestbook-frontend
-    restart: always
+    build: ./guestbook-frontend
     ports:
       - "3000:3000"
     depends_on:
