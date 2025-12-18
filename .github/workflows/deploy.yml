@@ -19,12 +19,12 @@ jobs:
 
       - name: Build and Push Backend
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/guestbook-backend ./backend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/guestbook-backend ./GuestBook-backend
           docker push ${{ secrets.DOCKER_USERNAME }}/guestbook-backend
 
       - name: Build and Push Frontend
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/guestbook-frontend ./frontend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/guestbook-frontend ./guestbook-frontend
           docker push ${{ secrets.DOCKER_USERNAME }}/guestbook-frontend
 
       - name: Deploy to EC2
