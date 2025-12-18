@@ -1,28 +1,21 @@
-# OpenJDK 21 사용
-FROM eclipse-temurin:21-jdk-jammy
+# ====== 1단계: 빌드 ======
+FROM eclipse-temurin:21-jdk-jammy AS build  # ✅ build stage 추가
 
-# 작업 디렉토리 설정
 WORKDIR /app
-
-# Gradle Wrapper와 설정 파일 복사
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle settings.gradle ./
-
-# 소스 코드 복사
 COPY src src
 
-# Gradle 빌드
-RUN chmod +x gradlew && ./gradlew clean build -x test
+RUN chmod +x gradlew && ./gradlew clean bootJar -x test  # ✅ bootJar로 빌드, jar 생성
 
-# 빌드된 jar를 컨테이너에 복사
-COPY build/libs/*.jar app.jar
+# ====== 2단계: 런타임 ======
+FROM eclipse-temurin:21-jdk-jammy  # ✅ runtime stage
 
-# Spring 프로파일 지정 (docker용)
-ENV SPRING_PROFILES_ACTIVE=docker
+WORKDIR /app
 
-# 포트 오픈
+# build stage에서 생성된 jar를 가져옴
+COPY --from=build /app/build/libs/*.jar app.jar  # ✅ 멀티스테이지 COPY
+
 EXPOSE 8080
-
-# 실행 커맨드
 CMD ["java", "-jar", "app.jar"]

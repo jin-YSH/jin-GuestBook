@@ -1,55 +1,42 @@
-name: Deploy to AWS
+name: Deploy Backend
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 코드 체크아웃
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      # Docker Hub 로그인
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      # Backend Docker build & push
-      - name: Build & Push Backend Docker Image
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/guestbook-backend ./GuestBook-backend
-          docker push ${{ secrets.DOCKER_USERNAME }}/guestbook-backend
-
-      # Frontend Docker build & push
-      - name: Build & Push Frontend Docker Image
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/guestbook-frontend ./guestbook-frontend
-          docker push ${{ secrets.DOCKER_USERNAME }}/guestbook-frontend
-
-      # EC2 배포
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
-          key: ${{ secrets.EC2_KEY }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # 기존 코드 pull / clone 처리
-            if [ -d /home/ec2-user/app ]; then
-              cd /home/ec2-user/app
+            cd /home/ec2-user/app
+
+            # ✅ 기존 clone 대신 pull 처리
+            if [ -d "./jin-GuestBook" ]; then
+              cd jin-GuestBook
               git reset --hard
               git pull
             else
-              mkdir -p /home/ec2-user/app
-              git clone https://github.com/jin-YSH/jin-GuestBook.git /home/ec2-user/app
-              cd /home/ec2-user/app
+              git clone https://github.com/your-username/jin-GuestBook.git
+              cd jin-GuestBook
             fi
 
-            # Docker Compose 배포
-            docker-compose -f docker-compose.prod.yml pull
-            docker-compose -f docker-compose.prod.yml up -d
+            # ✅ Docker Compose 사용
+            docker compose -f docker-compose.prod.yml build backend
+            docker compose -f docker-compose.prod.yml up -d backend
