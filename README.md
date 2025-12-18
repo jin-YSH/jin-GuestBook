@@ -3,18 +3,25 @@
 ## 프로젝트 구조
 
 jin-guestbook/\
-├─ backend/ # Spring Boot\
+├─ Guestbook-backend/ # Spring Boot\
 │ ├─ src/main/java/...\
 │ ├─ src/main/resources/\
-│ └─ build.gradle\
-│
-├─ frontend/ # Next.js\
+│ └── build.gradle
+├── guestbook-frontend/ # Next.js\
 │ ├─ app/\
 │ ├─ package.json\
 │ └─ tailwind.config.js\
-│
+├── docker-compose.yml\
+├─ .github/\
+│ └── workflows/\
+│ └── deploy.yml\
 └─ docs/\
-└─ 02-api-spec.md
+│ ├── 01-project-design.md\
+│ ├── 02-api-spec.md\
+│ ├── 03-docker.md\
+│ ├── 04-deploy.md\
+│ ├── 05-cicd.md\
+│ └── 06-retrospective.md
 
 ## 📅 일차별 진행 계획
 
@@ -46,18 +53,19 @@ Tailwind CSS로 간단한 스타일링
 
 ### 2일차 산출물 체크리스트
 
-[v] Dockerfile 2개 작성 (Backend, Frontend)
-[v] docker-compose.yml 작성
-[v] 로컬에서 docker-compose up 실행 확인
-[v] AWS EC2에 수동 배포 성공
+[v] Dockerfile 2개 작성 (Backend, Frontend)\
+[v] docker-compose.yml 작성\
+[v] 로컬에서 docker-compose up 실행 확인\
+[v] AWS EC2에 수동 배포 성공\
 [x] EC2 IP 주소로 서비스 접속 확인
 
 ### 3일차: CI/CD 자동화 & 문서화
 
 목표: 코드를 Push하면 자동으로 서버에 반영
 
-3일차 산출물 체크리스트
-[v] GitHub Actions 워크플로우 파일 작성
-[v] 코드 수정 후 Push → 자동 배포 확인
-[ ] 모든 문서 작성 완료
-[ ] 회고 문서 작성
+### 3일차 산출물 체크리스트
+
+[v] GitHub Actions 워크플로우 파일 작성\
+[v] 코드 수정 후 Push → 자동 배포 확인\
+[v] 모든 문서 작성 완료\
+[v] 회고 문서 작성
