@@ -16,14 +16,14 @@ jobs:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
-          ssh-private-key: ${{ secrets.EC2_KEY }}
+          ssh-private-key: ${{ secrets.EC2_KEY }} # ✅ 수정: 깃 시크릿 이름 맞춤
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
-          key: ${{ secrets.EC2_KEY }}
+          key: ${{ secrets.EC2_KEY }} # ✅ 수정: 깃 시크릿 이름 맞춤
           script: |
             cd /home/ec2-user/app
 
@@ -37,6 +37,6 @@ jobs:
               cd jin-GuestBook
             fi
 
-            # ✅ Docker Compose 사용
-            docker compose -f docker-compose.prod.yml build backend
-            docker compose -f docker-compose.prod.yml up -d backend
+            # ✅ Docker Compose 사용 (docker compose -> docker-compose로 수정)
+            docker-compose -f docker-compose.prod.yml build backend  # ✅ 수정
+            docker-compose -f docker-compose.prod.yml up -d backend   # ✅ 수정
