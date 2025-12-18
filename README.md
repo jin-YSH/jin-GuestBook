@@ -39,3 +39,25 @@ Tailwind CSS로 간단한 스타일링
 [v] Backend/Frontend 폴더 분리\
 [v] 로컬에서 데이터 저장/조회 성공 스크린샷\
 [v] API 명세서 작성 (docs/02-api-spec.md)
+
+### 2일차: 컨테이너화 & AWS 배포
+
+목표: 내 컴퓨터가 아닌 환경(Docker, AWS)에서 애플리케이션 실행
+
+### 2일차 산출물 체크리스트
+
+[v] Dockerfile 2개 작성 (Backend, Frontend)
+[v] docker-compose.yml 작성
+[v] 로컬에서 docker-compose up 실행 확인
+[v] AWS EC2에 수동 배포 성공
+[x] EC2 IP 주소로 서비스 접속 확인
+
+### 3일차: CI/CD 자동화 & 문서화
+
+목표: 코드를 Push하면 자동으로 서버에 반영
+
+3일차 산출물 체크리스트
+[v] GitHub Actions 워크플로우 파일 작성
+[v] 코드 수정 후 Push → 자동 배포 확인
+[ ] 모든 문서 작성 완료
+[ ] 회고 문서 작성
